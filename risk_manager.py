@@ -7,7 +7,7 @@ Handles position sizing, correlation filtering, and risk limits
 import MetaTrader5 as mt5
 import pandas as pd
 import numpy as np
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 import logging
 
 logger = logging.getLogger(__name__)
