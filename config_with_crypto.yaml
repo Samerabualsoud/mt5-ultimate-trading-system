@@ -1,0 +1,252 @@
+# Ultimate Trading Bot V2 Configuration
+# =====================================
+# Complete configuration with Forex + Cryptocurrency support
+
+# MT5 Connection
+mt5_login: 123456789
+mt5_password: "YourPassword"
+mt5_server: "YourBroker-Server"
+mt5_path: "C:\\Program Files\\MetaTrader 5\\terminal64.exe"  # Windows
+# mt5_path: "/Applications/MetaTrader 5.app"  # Mac
+
+# Trading Symbols
+symbols:
+  # Major Forex Pairs
+  - EURUSD
+  - GBPUSD
+  - USDJPY
+  - AUDUSD
+  - USDCAD
+  - NZDUSD
+  - USDCHF
+  
+  # Cross Pairs
+  - EURJPY
+  - GBPJPY
+  - EURGBP
+  - AUDJPY
+  - EURAUD
+  
+  # Exotic Pairs
+  - EURTRY
+  - USDMXN
+  - USDZAR
+  
+  # Cryptocurrencies (if enabled)
+  - BTCUSD
+  - ETHUSD
+  - LTCUSD
+  - XRPUSD
+
+# Cryptocurrency Settings
+enable_crypto: true  # Set to false to disable crypto trading
+crypto_settings:
+  # Crypto-specific risk settings
+  max_crypto_risk_per_trade: 0.003  # 0.3% (lower than forex due to volatility)
+  max_crypto_positions: 2  # Maximum concurrent crypto positions
+  
+  # Crypto symbols to trade (auto-detected if empty)
+  crypto_symbols:
+    - BTCUSD
+    - ETHUSD
+    - LTCUSD
+    - XRPUSD
+  
+  # Crypto-specific filters
+  min_crypto_confidence: 65  # Higher threshold for crypto
+  use_crypto_session_filter: false  # Crypto trades 24/7
+  
+  # Volatility adjustments (multipliers)
+  btc_volatility_mult: 2.5
+  eth_volatility_mult: 3.0
+  altcoin_volatility_mult: 4.0
+
+# Risk Management
+risk_management:
+  # Position sizing
+  risk_per_trade: 0.005  # 0.5% of account per trade
+  max_risk_per_day: 0.03  # 3% maximum daily risk
+  max_positions: 5  # Maximum concurrent positions (forex + crypto)
+  max_positions_per_symbol: 1
+  
+  # Drawdown protection
+  max_consecutive_losses: 5
+  max_hourly_loss_percent: 0.01  # 1% per hour
+  max_daily_loss_percent: 0.03  # 3% per day
+  pause_after_consecutive_losses: 3600  # 1 hour in seconds
+  pause_after_daily_loss: 86400  # 24 hours
+  
+  # Correlation management
+  enable_correlation_check: true
+  max_correlation_exposure: 0.7  # Reduce size if correlation > 70%
+  correlation_reduction_factor: 0.5  # Reduce by 50%
+
+# Strategy Settings
+strategies:
+  enable_multi_timeframe: true
+  min_confidence: 60  # Minimum confidence to trade
+  
+  # Strategy-specific settings
+  strategy_1_trend_following:
+    enabled: true
+    min_confidence: 65
+    
+  strategy_2_breakout:
+    enabled: true
+    min_confidence: 60
+    
+  strategy_3_mean_reversion:
+    enabled: true
+    min_confidence: 70
+    
+  strategy_4_momentum:
+    enabled: true
+    min_confidence: 65
+    
+  strategy_5_support_resistance:
+    enabled: true
+    min_confidence: 60
+    
+  strategy_6_divergence:
+    enabled: true
+    min_confidence: 75
+
+# SL/TP Settings
+sl_tp_settings:
+  # Dynamic SL/TP (uses market structure)
+  use_dynamic_sl_tp: true
+  
+  # Trailing stops
+  use_trailing_stop: true
+  trailing_stop_activation: 0.5  # Activate at 50% of TP
+  trailing_stop_distance: 0.3  # Trail at 30% of original SL
+  
+  # Break-even
+  move_to_breakeven: true
+  breakeven_activation: 0.4  # Move to BE at 40% of TP
+  breakeven_buffer: 5  # Add 5 pips buffer
+  
+  # Partial profits
+  take_partial_profits: true
+  partial_profit_percent: 0.5  # Close 50% of position
+  partial_profit_level: 0.6  # At 60% of TP
+
+# Position Monitoring
+position_monitoring:
+  check_interval: 30  # Check every 30 seconds
+  
+  # Emergency exit conditions
+  emergency_exit_enabled: true
+  emergency_exit_loss_percent: 0.02  # Exit if loss > 2% of account
+  
+  # Time-based exits
+  max_position_duration: 14400  # 4 hours in seconds
+  close_positions_at_weekend: true
+
+# Scanning Settings
+scanning:
+  scan_interval: 300  # Scan every 5 minutes
+  enable_continuous_scanning: true
+  max_opportunities_per_scan: 10
+
+# Execution Settings
+execution:
+  max_slippage: 3  # Maximum slippage in pips
+  max_retries: 3
+  retry_delay: 2  # seconds
+  
+  # Order types
+  use_market_orders: true
+  use_pending_orders: false
+
+# Logging
+logging:
+  log_level: INFO  # DEBUG, INFO, WARNING, ERROR
+  log_to_file: true
+  log_file: "trading_bot.log"
+  log_trades: true
+  trade_log_file: "trades.csv"
+
+# Notifications (optional)
+notifications:
+  enabled: false
+  telegram_bot_token: ""
+  telegram_chat_id: ""
+  
+  # What to notify
+  notify_on_trade: true
+  notify_on_error: true
+  notify_on_daily_summary: true
+
+# AI Enhancements (optional)
+ai_enhancements:
+  # Sentiment analysis using GPT-4
+  enable_sentiment_analysis: false
+  sentiment_api_key: ""  # OpenAI API key
+  sentiment_adjustment_weight: 0.2  # How much to adjust confidence
+  
+  # Pattern detection
+  enable_pattern_detection: false
+  pattern_api_url: ""  # TrendSpider or LuxAlgo API
+  pattern_api_key: ""
+  
+  # ML predictions
+  enable_ml_predictions: false
+  ml_api_url: ""  # Tickeron or similar
+  ml_api_key: ""
+
+# Backtesting (for testing)
+backtesting:
+  enabled: false
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  initial_balance: 10000
+
+# Performance Tracking
+performance:
+  track_performance: true
+  performance_file: "performance.json"
+  calculate_sharpe_ratio: true
+  calculate_max_drawdown: true
+
+# Safety Features
+safety:
+  # Trading hours (UTC)
+  trading_hours:
+    enabled: false  # Set to true to restrict trading hours
+    start_hour: 0
+    end_hour: 24
+  
+  # Days of week
+  trading_days:
+    monday: true
+    tuesday: true
+    wednesday: true
+    thursday: true
+    friday: true
+    saturday: false  # Crypto only
+    sunday: false  # Crypto only
+  
+  # Account protection
+  min_account_balance: 100  # Stop trading if balance < this
+  max_account_leverage: 100  # Maximum leverage to use
+  
+  # Circuit breaker
+  circuit_breaker_enabled: true
+  circuit_breaker_loss_percent: 0.05  # Stop trading if 5% loss
+
+# Advanced Features
+advanced:
+  # Multi-threading
+  use_multithreading: false  # Experimental
+  max_threads: 4
+  
+  # Database
+  use_database: false
+  database_url: "sqlite:///trading_bot.db"
+  
+  # API server
+  enable_api_server: false
+  api_port: 8000
+  api_host: "0.0.0.0"
+
